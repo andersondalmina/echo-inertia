@@ -1,7 +1,8 @@
 package main
 
 import (
-	"net/http"
+	"go-inertia/app/api"
+	"go-inertia/app/web"
 
 	"github.com/elipzis/inertia-echo"
 	"github.com/labstack/echo/v4"
@@ -12,18 +13,15 @@ func main() {
 	e.Static("/", "public/build")
 
 	inertiaConfig := inertia.NewDefaultInertiaConfig(e)
-	inertiaConfig.RootView = "app.html"
-	inertiaConfig.TemplatesPath = "frontend/*.html"
+	inertiaConfig.RootView = "index.html"
+	inertiaConfig.TemplatesPath = "public/*.html"
 
 	e.Use(inertia.MiddlewareWithConfig(inertia.MiddlewareConfig{
 		Inertia: inertia.NewInertiaWithConfig(inertiaConfig),
 	}))
 
-	e.GET("/teste", func(c echo.Context) error {
-		return c.Render(http.StatusOK, "Index", map[string]interface{}{
-			"teste": "Teste 123",
-		})
-	})
+	api.ConfigureRoutes(e)
+	web.ConfigureRoutes(e)
 
-	e.Logger.Fatal(e.Start(":1323"))
+	e.Logger.Fatal(e.Start(":8000"))
 }

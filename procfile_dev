@@ -1,2 +1,2 @@
-web: go run ./app/main.go
+web: air
 assets: npm run watch

@@ -1,11 +1,16 @@
 import React from "react";
+import { Link } from "@inertiajs/react";
 
 interface pageProps {
-  teste: string
+  teamName: string;
 }
 
-export default function Index({ teste }: pageProps) {
+export default function Index({ teamName }: pageProps) {
   return (
-    <p>Hello {teste}, welcome to your first Inertia app!</p>
+    <div>
+      <p>Time {teamName}!</p>
+      <Link href="/user">Ver usuário</Link>
+      <Link href="/providers">Operadoras</Link>
+    </div>
   );
 }
